@@ -37,8 +37,15 @@ function operate (operator, x, y) {
     }
 }
 
+let totalNumber = ""
+
 let numbers = document.getElementsByClassName("numbers")
 for (i=0;i<numbers.length;i++) {
-    let text = numbers[i].textContent
-    numbers[i].addEventListener("click", () => console.log(text))
+    let text = numbers[i].textContent;
+    numbers[i].addEventListener("click", () => console.log(storeNumber(text)))
+}
+
+function storeNumber(number) {
+    totalNumber += number
+    return totalNumber
 }
