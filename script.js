@@ -3,7 +3,7 @@
     Xfunction for operate, to consolidate operators
     Xfunction to store numbers in a variable
     Xfunciton to concatenate stored number with subsequent input numbers
-function to break string of numbers when operator is input
+    Xfunction to break string of numbers when operator is input
 function to display strings of numbers and operators
 function that resolves operation when second operator is input or when equal sign is input
 function to clear display and reinitialize variables when C is pressed
@@ -33,7 +33,9 @@ function divide (x,y) {
 
 function operate (operator, x, y) {
     if (operator == "+") {
-        return add(x,y);
+        totalNumber = add(x,y)
+        pushToDisplay (totalNumber)
+        return totalNumber;
     } else if (operator == "-") {
         return subtract(x,y);
     } else if (operator == "X") {
@@ -47,7 +49,7 @@ function applyNumberEvent() {
     let numbers = document.getElementsByClassName("numbers")
     for (i=0;i<numbers.length;i++) {
         let text = numbers[i].textContent;
-        numbers[i].addEventListener("click", () => storeNumber(text))
+        numbers[i].addEventListener("click", () => numberPressed(text))
     }
 }
 
@@ -59,7 +61,7 @@ function applyOperatorEvent() {
     }
 }
 
-function storeNumber(number) {
+function numberPressed(number) {
     totalNumber += number;
     pushToDisplay(totalNumber);
     return totalNumber;
@@ -72,7 +74,7 @@ function countPlaces(totalNumber) {
 
 function whiteSpace(totalNumber) {
     let space = ""
-    let numberLength = countPlaces(totalNumber)
+    let numberLength = countPlaces(totalNumber.toString())
     for (i=0;i<(10 - numberLength);i++){
         space += "0"
     }
