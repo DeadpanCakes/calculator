@@ -1,8 +1,8 @@
 /*
-functions for add, subtract, multiply, and divide
-function for operate, to consolidate operators
-function to store numbers in a variable
-funciton to concatenate stored number with subsequent input numbers
+    Xfunctions for add, subtract, multiply, and divide
+    Xfunction for operate, to consolidate operators
+    Xfunction to store numbers in a variable
+    Xfunciton to concatenate stored number with subsequent input numbers
 function to break string of numbers when operator is input
 function to display strings of numbers and operators
 function that resolves operation when second operator is input or when equal sign is input
@@ -38,9 +38,10 @@ function operate (operator, x, y) {
 }
 
 let totalNumber = ""
+let x = ""
+let y = ""
 
-
-function applyEvent() {
+function applyNumberEvent() {
     let numbers = document.getElementsByClassName("numbers")
     for (i=0;i<numbers.length;i++) {
         let text = numbers[i].textContent;
@@ -48,7 +49,8 @@ function applyEvent() {
     }
 }
 
-applyEvent();
+applyNumberEvent();
+applyOperatorEvent();
 
 function storeNumber(number) {
     totalNumber += number;
@@ -73,4 +75,23 @@ function whiteSpace(totalNumber) {
 function pushToDisplay(totalNumber) {
     let display = document.getElementById("display");
     display.textContent = whiteSpace(totalNumber) + totalNumber;
+}
+
+function operatorPressed(operator){
+    if (x !== "") {
+        y = totalNumber;
+        totalNumber = ""
+        operate(operator,x,y)
+    } else {
+        x = totalNumber;
+        totalNumber = ""
+    }
+}
+
+function applyOperatorEvent() {
+    let operator = document.getElementsByClassName("operator")
+    for (i=0;i<operator.length;i++){
+        let text = operator[i].textContent
+        operator[i].addEventListener("click", () => console.log(text))
+    }
 }
