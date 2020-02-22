@@ -9,25 +9,30 @@ function that resolves operation when second operator is input or when equal sig
 function to clear display and reinitialize variables when C is pressed
 function to slice last num when backspace is pressed
 */
+let totalNumber = ""
+let x = ""
+let y = ""
+let operator = ""
+
+
 function add (x,y) {
     return Number(x) + Number(y);
 }
 
 function subtract (x,y) {
-    return x - y;
+    return Number(x) - Number(y);
 }
 
 function multiply (x,y) {
-    return x * y;
+    return Number(x) * Number(y);
 }
 
 function divide (x,y) {
-    return x / y;
+    return Number(x) / Number(y);
 }
 
 function operate (operator, x, y) {
     if (operator == "+") {
-        console.log(add(x,y))
         return add(x,y);
     } else if (operator == "-") {
         return subtract(x,y);
@@ -38,11 +43,6 @@ function operate (operator, x, y) {
     }
 }
 
-let totalNumber = ""
-let x = ""
-let y = ""
-let operator = ""
-
 function applyNumberEvent() {
     let numbers = document.getElementsByClassName("numbers")
     for (i=0;i<numbers.length;i++) {
@@ -51,8 +51,13 @@ function applyNumberEvent() {
     }
 }
 
-applyNumberEvent();
-applyOperatorEvent();
+function applyOperatorEvent() {
+    let operator = document.getElementsByClassName("operator")
+    for (i=0;i<operator.length;i++){
+        let text = operator[i].textContent
+        operator[i].addEventListener("click", () => operatorPressed(text))
+    }
+}
 
 function storeNumber(number) {
     totalNumber += number;
@@ -91,10 +96,5 @@ function operatorPressed(text){
     }
 }
 
-function applyOperatorEvent() {
-    let operator = document.getElementsByClassName("operator")
-    for (i=0;i<operator.length;i++){
-        let text = operator[i].textContent
-        operator[i].addEventListener("click", () => operatorPressed(text))
-    }
-}
+applyNumberEvent();
+applyOperatorEvent();
