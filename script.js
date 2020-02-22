@@ -39,13 +39,38 @@ function operate (operator, x, y) {
 
 let totalNumber = ""
 
-let numbers = document.getElementsByClassName("numbers")
-for (i=0;i<numbers.length;i++) {
-    let text = numbers[i].textContent;
-    numbers[i].addEventListener("click", () => console.log(storeNumber(text)))
+
+function applyEvent() {
+    let numbers = document.getElementsByClassName("numbers")
+    for (i=0;i<numbers.length;i++) {
+        let text = numbers[i].textContent;
+        numbers[i].addEventListener("click", () => storeNumber(text))
+    }
 }
 
+applyEvent();
+
 function storeNumber(number) {
-    totalNumber += number
-    return totalNumber
+    totalNumber += number;
+    pushToDisplay(totalNumber);
+    return totalNumber;
+}
+
+function countPlaces(totalNumber) {
+    let numberLength = totalNumber.length;
+    return numberLength;
+}
+
+function whiteSpace(totalNumber) {
+    let space = ""
+    let numberLength = countPlaces(totalNumber)
+    for (i=0;i<(10 - numberLength);i++){
+        space += "0"
+    }
+    return space
+}
+
+function pushToDisplay(totalNumber) {
+    let display = document.getElementById("display");
+    display.textContent = whiteSpace(totalNumber) + totalNumber;
 }
