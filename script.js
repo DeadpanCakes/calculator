@@ -1,21 +1,3 @@
-/*
-    Xfunctions for add, subtract, multiply, and divide
-    Xfunction for operate, to consolidate operators
-    Xfunction to store numbers in a variable
-    Xfunciton to concatenate stored number with subsequent input numbers
-    Xfunction to break string of numbers when operator is input
-function to display strings of numbers and operators
-function that resolves operation when second operator is input or when equal sign is input
-function to clear display and reinitialize variables when C is pressed
-function to slice last num when backspace is pressed
-
-YOU CANNOT EMPTY A GLOBAL VARIABLE FROM WITHIN A FUNCTION'S SCOPE. CHANGE YOUR CODE TO STOP RELYING ON GLOBAL VARIABLES,
-AND INSTEAD CENTER THE FUNCTIONS BY USING ONLY LOCAL VARIABLES
-
-function forfloat
-Number(number).toFixed(10-whole numbers)
-
-*/
 let currentArr = []
 let currentNumber = ""
 let x = ""
@@ -60,35 +42,19 @@ function operate (operator, x, y) {
     x = outcome;
 }
 
-function applyNumberEvent() {
-    let numbers = document.getElementsByClassName("numbers")
-    for (i=0;i<numbers.length;i++) {
-        let character = numbers[i].textContent;
-        numbers[i].addEventListener("click", () => storeNumber(character))
-    }
-}
-
-function applyOperatorEvent() {
-    let operators = document.getElementsByClassName("operator")
-    for (i=0;i<operators.length;i++){
-        let character = operators[i].textContent
-        operators[i].addEventListener("click", () => operatorPressed(character))
-    }
-}
-
-function applyClearEvent() {
-    let clear = document.getElementById("clear")
-    clear.addEventListener("click", () => initialize())
-}
-
-function applyBackEvent() {
-    let back = document.getElementById("back")
-    back.addEventListener("click", () => backspace())
-}
-
 function backspace () {
     currentArr.pop()
     currentNumber = arrToNumber(currentArr)
+    pushToDisplay(currentNumber)
+}
+
+function initialize() {
+    emptyArr(currentArr)
+    x = ""
+    y = ""
+    operator = ""
+    pendingOperator = ""
+    currentNumber = ""
     pushToDisplay(currentNumber)
 }
 
@@ -136,10 +102,6 @@ function whiteSpace(currentNumber) {
 
 function pushToDisplay(currentNumber) {
     let display = document.getElementById("display");
-    // if ((currentNumber % 1) !== 0) {
-    //     let wholeNumbers = countWholeNumbers(currentNumber)
-    //     currentNumber = Number(currentNumber).toFixed(10 - wholeNumbers)
-    //}
     display.textContent = whiteSpace(currentNumber) + currentNumber;
 }
 
@@ -179,14 +141,30 @@ function ensureReadable (outcome) {
     }
 }
 
-function initialize() {
-    emptyArr(currentArr)
-    x = ""
-    y = ""
-    operator = ""
-    pendingOperator = ""
-    currentNumber = ""
-    pushToDisplay(currentNumber)
+function applyNumberEvent() {
+    let numbers = document.getElementsByClassName("numbers")
+    for (i=0;i<numbers.length;i++) {
+        let character = numbers[i].textContent;
+        numbers[i].addEventListener("click", () => storeNumber(character))
+    }
+}
+
+function applyOperatorEvent() {
+    let operators = document.getElementsByClassName("operator")
+    for (i=0;i<operators.length;i++){
+        let character = operators[i].textContent
+        operators[i].addEventListener("click", () => operatorPressed(character))
+    }
+}
+
+function applyClearEvent() {
+    let clear = document.getElementById("clear")
+    clear.addEventListener("click", () => initialize())
+}
+
+function applyBackEvent() {
+    let back = document.getElementById("back")
+    back.addEventListener("click", () => backspace())
 }
 
 applyNumberEvent();
