@@ -37,7 +37,7 @@ function operate (operator, x, y) {
     } else if (operator == "/") {
         outcome = divide(x,y);
     }
-    console.log(outcome)
+    console.log("outcome:",outcome)
     pushToDisplay(outcome);
     x = outcome;
 }
@@ -113,14 +113,19 @@ function pushToDisplay(currentNumber) {
 function operatorPressed(character){
     if (character === "=") {
         if (pendingOperator === "") {
+            let retainedNumber = currentNumber;
             initialize();
+            currentNumber = retainedNumber
+            pushToDisplay(currentNumber)
         } else if (pendingOperator !== "" && pendingOperator !== "=") {
             operate(pendingOperator,x,y)
         }
     } else if (currentNumber === "") {
         pendingOperator = character;
     }
-    if (pendingOperator !== "") {
+    if ((x !== "") && (currentNumber === "")) {
+        pendingOperator = character;
+    } else if (pendingOperator !== "") {
         y = currentNumber;
         operate(pendingOperator,x,y);
         emptyArr(currentArr);
@@ -132,7 +137,9 @@ function operatorPressed(character){
     if (x === "") {
         x = currentNumber;
         emptyArr(currentArr);
+        currentNumber = ""
     }
+    console.log(pendingOperator)
 }
 
 function checkDecimal (number) {
