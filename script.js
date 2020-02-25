@@ -37,7 +37,6 @@ function operate (operator, x, y) {
     } else if (operator == "/") {
         outcome = divide(x,y);
     }
-    console.log("outcome:",outcome)
     pushToDisplay(outcome);
     x = outcome;
 }
@@ -139,7 +138,6 @@ function operatorPressed(character){
         emptyArr(currentArr);
         currentNumber = ""
     }
-    console.log(pendingOperator)
 }
 
 function checkDecimal (number) {
@@ -186,7 +184,17 @@ function applyKeyEvent() {
 }
 
 function logKey (e) {
-    console.log("hey, I worked")
+    let code = e.keyCode
+    let str
+    if ((Number(code) < 57) && (Number(code) > 48)) {
+        str = String.fromCharCode(Number(code))
+    } else if ((Number(code) > 95) && (Number(code) < 107)){
+        code = Number(code) - 48
+        str = String.fromCharCode(Number(code))
+    } else {
+        return ""
+    }
+    storeNumber(str)
 }
 
 applyKeyEvent()
