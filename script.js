@@ -58,6 +58,13 @@ function initialize() {
 }
 
 function storeNumber(character) {
+    if (pendingOperator == "=") {
+        let retainedNumber = currentNumber
+        initialize();
+        outcome = ""
+        currentNumber = retainedNumber;
+        console.log("tests")
+    }
     if (currentArr.length < 10) {
         currentArr.push(character)
     }
@@ -121,7 +128,7 @@ function operatorPressed(character){
         }
     } else if (currentNumber === "") {
         pendingOperator = character;
-    }
+    } 
     if ((x !== "") && (currentNumber === "")) {
         pendingOperator = character;
     } else if (pendingOperator !== "") {
