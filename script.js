@@ -18,7 +18,7 @@ let currentNumber = ""
 let x = ""
 let y = ""
 let operator = ""
-let outcome
+let outcome = ""
 let pendingOperator = ""
 
 
@@ -118,13 +118,22 @@ function pushToDisplay(currentNumber) {
 }
 
 function operatorPressed(character){
+    if (character === "=") {
+        if (pendingOperator === "") {
+            initialize();
+        } else if (pendingOperator !== "" && pendingOperator !== "=") {
+            operate(pendingOperator,x,y)
+        }
+    }
     if (pendingOperator !== "") {
         y = currentNumber
         operate(pendingOperator,x,y)
         emptyArr(currentArr)
         x = outcome
+    } else if (pendingOperator = "" && character === "="){
+        return ""
     }
-    pendingOperator = character
+    pendingOperator = character    
     if (x === "") {
         x = currentNumber
         emptyArr(currentArr)
