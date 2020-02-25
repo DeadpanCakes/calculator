@@ -12,6 +12,9 @@ function to slice last num when backspace is pressed
 YOU CANNOT EMPTY A GLOBAL VARIABLE FROM WITHIN A FUNCTION'S SCOPE. CHANGE YOUR CODE TO STOP RELYING ON GLOBAL VARIABLES,
 AND INSTEAD CENTER THE FUNCTIONS BY USING ONLY LOCAL VARIABLES
 
+function forfloat
+Number(number).toFixed(10-whole numbers)
+
 */
 let currentArr = []
 let currentNumber = ""
@@ -52,6 +55,7 @@ function operate (operator, x, y) {
     } else if (operator == "/") {
         outcome = divide(x,y);
     }
+    ensureReadable(outcome);
     pushToDisplay(outcome);
     x = outcome;
 }
@@ -78,7 +82,9 @@ function applyClearEvent() {
 }
 
 function storeNumber(character) {
-    currentArr.push(character)
+    if (currentArr.length < 10) {
+        currentArr.push(character)
+    }
     currentNumber = arrToNumber(currentArr)
     pushToDisplay(currentNumber)
 }
@@ -89,6 +95,11 @@ function arrToNumber(arr) {
         convertedNumber += arr[i]
     }
     return convertedNumber;
+}
+
+function countWholeNumbers(currentNum) {
+   let wholeNumber = Number(currentNum).toFixed()
+   return wholeNumber.length
 }
 
 function emptyArr (arr) {
@@ -114,6 +125,10 @@ function whiteSpace(currentNumber) {
 
 function pushToDisplay(currentNumber) {
     let display = document.getElementById("display");
+    // if ((currentNumber % 1) !== 0) {
+    //     let wholeNumbers = countWholeNumbers(currentNumber)
+    //     currentNumber = Number(currentNumber).toFixed(10 - wholeNumbers)
+    //}
     display.textContent = whiteSpace(currentNumber) + currentNumber;
 }
 
@@ -137,6 +152,19 @@ function operatorPressed(character){
     if (x === "") {
         x = currentNumber
         emptyArr(currentArr)
+    }
+}
+
+function checkDecimal (number) {
+    let str = number.toString()
+    let decimal = str.indexOf(".")
+    let strOut = str.slice(decimal + 1)
+    return strOut.length;
+}
+
+function ensureReadable (outcome) {
+    if (((outcome % 1) > 0) && (checkDecimal(outcome)>5)) {
+        return (Number(outcome).toFixed(5))
     }
 }
 
