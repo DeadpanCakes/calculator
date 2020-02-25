@@ -54,6 +54,7 @@ function initialize() {
     operator = ""
     pendingOperator = ""
     currentNumber = ""
+    outcome = ""
     pushToDisplay(currentNumber)
 }
 
