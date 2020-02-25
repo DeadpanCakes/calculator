@@ -35,7 +35,11 @@ function multiply (x,y) {
 }
 
 function divide (x,y) {
+    if (y == 0) {
+        return "Whaaaaaat?"
+    } else {
     return Number(x) / Number(y);
+    }
 }
 
 function operate (operator, x, y) {
@@ -50,7 +54,6 @@ function operate (operator, x, y) {
     }
     pushToDisplay(outcome);
     x = outcome;
-    console.log("x is", x)
 }
 
 function applyNumberEvent() {
@@ -120,7 +123,6 @@ function operatorPressed(character){
         operate(pendingOperator,x,y)
         emptyArr(currentArr)
         x = outcome
-        console.log ("for real, x is", x)
     }
     pendingOperator = character
     if (x === "") {
@@ -136,7 +138,6 @@ function initialize() {
     operator = ""
     pendingOperator = ""
     currentNumber = ""
-    console.log(x,y,operator,pendingOperator)
     pushToDisplay(currentNumber)
 }
 
