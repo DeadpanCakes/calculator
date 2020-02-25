@@ -55,7 +55,7 @@ function operate (operator, x, y) {
     } else if (operator == "/") {
         outcome = divide(x,y);
     }
-    ensureReadable(outcome);
+    console.log(outcome)
     pushToDisplay(outcome);
     x = outcome;
 }
@@ -79,6 +79,17 @@ function applyOperatorEvent() {
 function applyClearEvent() {
     let clear = document.getElementById("clear")
     clear.addEventListener("click", () => initialize())
+}
+
+function applyBackEvent() {
+    let back = document.getElementById("back")
+    back.addEventListener("click", () => backspace())
+}
+
+function backspace () {
+    currentArr.pop()
+    currentNumber = arrToNumber(currentArr)
+    pushToDisplay(currentNumber)
 }
 
 function storeNumber(character) {
@@ -164,7 +175,7 @@ function checkDecimal (number) {
 
 function ensureReadable (outcome) {
     if (((outcome % 1) > 0) && (checkDecimal(outcome)>5)) {
-        return (Number(outcome).toFixed(5))
+        return Number(Number(outcome).toFixed(5))
     }
 }
 
@@ -181,3 +192,4 @@ function initialize() {
 applyNumberEvent();
 applyOperatorEvent();
 applyClearEvent();
+applyBackEvent();
