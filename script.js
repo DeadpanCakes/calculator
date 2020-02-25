@@ -102,7 +102,12 @@ function whiteSpace(currentNumber) {
 
 function pushToDisplay(currentNumber) {
     let display = document.getElementById("display");
-    display.textContent = whiteSpace(currentNumber) + currentNumber;
+    let displayText = whiteSpace(currentNumber) + currentNumber;
+    if (displayText.length > 10) {
+        display.textContent = displayText.slice(0,10);
+    } else {
+        display.textContent = displayText
+    }
 }
 
 function operatorPressed(character){
