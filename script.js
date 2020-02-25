@@ -8,11 +8,18 @@ function to display strings of numbers and operators
 function that resolves operation when second operator is input or when equal sign is input
 function to clear display and reinitialize variables when C is pressed
 function to slice last num when backspace is pressed
+
+YOU CANNOT EMPTY A GLOBAL VARIABLE FROM WITHIN A FUNCTION'S SCOPE. CHANGE YOUR CODE TO STOP RELYING ON GLOBAL VARIABLES,
+AND INSTEAD CENTER THE FUNCTIONS BY USING ONLY LOCAL VARIABLES
+
 */
-let totalNumber = ""
+let currentArr = []
+let currentNumber = ""
 let x = ""
 let y = ""
 let operator = ""
+let outcome
+let pendingOperator = ""
 
 
 function add (x,y) {
@@ -33,70 +40,106 @@ function divide (x,y) {
 
 function operate (operator, x, y) {
     if (operator == "+") {
-        totalNumber = add(x,y)
-        pushToDisplay (totalNumber)
-        return totalNumber;
+        outcome = add(x,y);
     } else if (operator == "-") {
-        return subtract(x,y);
+        outcome = subtract(x,y);
     } else if (operator == "X") {
-        return multiply(x,y);
+        outcome = multiply(x,y);
     } else if (operator == "/") {
-        return divide(x,y);
+        outcome = divide(x,y);
     }
+    pushToDisplay(outcome);
+    x = outcome;
+    console.log("x is", x)
 }
 
 function applyNumberEvent() {
     let numbers = document.getElementsByClassName("numbers")
     for (i=0;i<numbers.length;i++) {
-        let text = numbers[i].textContent;
-        numbers[i].addEventListener("click", () => numberPressed(text))
+        let character = numbers[i].textContent;
+        numbers[i].addEventListener("click", () => storeNumber(character))
     }
 }
 
 function applyOperatorEvent() {
-    let operator = document.getElementsByClassName("operator")
-    for (i=0;i<operator.length;i++){
-        let text = operator[i].textContent
-        operator[i].addEventListener("click", () => operatorPressed(text))
+    let operators = document.getElementsByClassName("operator")
+    for (i=0;i<operators.length;i++){
+        let character = operators[i].textContent
+        operators[i].addEventListener("click", () => operatorPressed(character))
     }
 }
 
-function numberPressed(number) {
-    totalNumber += number;
-    pushToDisplay(totalNumber);
-    return totalNumber;
+function applyClearEvent() {
+    let clear = document.getElementById("clear")
+    clear.addEventListener("click", () => initialize())
 }
 
-function countPlaces(totalNumber) {
-    let numberLength = totalNumber.length;
+function storeNumber(character) {
+    currentArr.push(character)
+    currentNumber = arrToNumber(currentArr)
+    pushToDisplay(currentNumber)
+}
+
+function arrToNumber(arr) {
+    let convertedNumber = ""
+    for(i=0;i<arr.length;i++) {
+        convertedNumber += arr[i]
+    }
+    return convertedNumber;
+}
+
+function emptyArr (arr) {
+    let length = arr.length
+    for (i=0;i<length;i++) {
+        arr.pop();
+    }
+}
+
+function countPlaces(currentNumber) {
+    let numberLength = currentNumber.length;
     return numberLength;
 }
 
-function whiteSpace(totalNumber) {
+function whiteSpace(currentNumber) {
     let space = ""
-    let numberLength = countPlaces(totalNumber.toString())
+    let numberLength = countPlaces(currentNumber.toString())
     for (i=0;i<(10 - numberLength);i++){
         space += "0"
     }
     return space
 }
 
-function pushToDisplay(totalNumber) {
+function pushToDisplay(currentNumber) {
     let display = document.getElementById("display");
-    display.textContent = whiteSpace(totalNumber) + totalNumber;
+    display.textContent = whiteSpace(currentNumber) + currentNumber;
 }
 
-function operatorPressed(text){
-    operator = text
-    if (x !== "") {
-        y = totalNumber;
-        totalNumber = ""
-        operate(operator,x,y)
-    } else {
-        x = totalNumber;
-        totalNumber = ""
+function operatorPressed(character){
+    if (pendingOperator !== "") {
+        y = currentNumber
+        operate(pendingOperator,x,y)
+        emptyArr(currentArr)
+        x = outcome
+        console.log ("for real, x is", x)
     }
+    pendingOperator = character
+    if (x === "") {
+        x = currentNumber
+        emptyArr(currentArr)
+    }
+}
+
+function initialize() {
+    emptyArr(currentArr)
+    x = ""
+    y = ""
+    operator = ""
+    pendingOperator = ""
+    currentNumber = ""
+    console.log(x,y,operator,pendingOperator)
+    pushToDisplay(currentNumber)
 }
 
 applyNumberEvent();
 applyOperatorEvent();
+applyClearEvent();
