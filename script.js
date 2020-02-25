@@ -112,19 +112,21 @@ function operatorPressed(character){
         } else if (pendingOperator !== "" && pendingOperator !== "=") {
             operate(pendingOperator,x,y)
         }
+    } else if (currentNumber === "") {
+        pendingOperator = character;
     }
     if (pendingOperator !== "") {
-        y = currentNumber
-        operate(pendingOperator,x,y)
-        emptyArr(currentArr)
-        x = outcome
-    } else if (pendingOperator = "" && character === "="){
-        return ""
+        y = currentNumber;
+        operate(pendingOperator,x,y);
+        emptyArr(currentArr);
+        x = outcome;
+    } else if (pendingOperator === "" && character === "="){
+        return "";
     }
     pendingOperator = character    
     if (x === "") {
-        x = currentNumber
-        emptyArr(currentArr)
+        x = currentNumber;
+        emptyArr(currentArr);
     }
 }
 
@@ -167,6 +169,15 @@ function applyBackEvent() {
     back.addEventListener("click", () => backspace())
 }
 
+function applyKeyEvent() {
+    window.addEventListener("keyup", logKey)
+}
+
+function logKey (e) {
+    console.log("hey, I worked")
+}
+
+applyKeyEvent()
 applyNumberEvent();
 applyOperatorEvent();
 applyClearEvent();
