@@ -55,7 +55,7 @@ table {
 
 #operators {
 	display: grid;
-	grid-template-rows: repeat(4, 1fr);
+	grid-template-rows: repeat(5, 1fr);
 }
 
 #calcContainer {
@@ -66,6 +66,7 @@ table {
 
 #display {
 	flex-basis: 10%;
+	font-size: 80px;
 }
 
 #buttons {
