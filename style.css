@@ -52,3 +52,22 @@ table {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 }
+
+#operators {
+	display: grid;
+	grid-template-rows: repeat(4, 1fr);
+}
+
+#calcContainer {
+	display: flex;
+	flex-direction: column;
+	height: 800px;
+}
+
+#display {
+	flex-basis: 10%;
+}
+
+#buttons {
+	flex-basis: 80%;
+}
