@@ -7,11 +7,12 @@
 </head>
 
 <body>
-    <div id="calcContainer">
-        <div id="display">
-            0000000000
-        </div>
-        <div id="buttons">
+    <div id="border">
+        <div id="calcContainer">
+            <div id="display">
+                0000000000
+            </div>
+            <div id="buttons">
                 <ul id="numpad">
                     <li>
                         <button class="numbers">1</button>
@@ -40,7 +41,7 @@
                     <li>
                         <button class="numbers">9</button>
                     </li>
-                    <li>
+                    <li  id="zero">
                         <button class="numbers">0</button>
                     </li>
                     <li>
@@ -64,9 +65,10 @@
                         <button class="operator">=</button>
                     </li>
                 </ul>
-                <button id="clear">C</button>
-                <button id="back">Back</button>
+                <button class = "del" id="clear">C</button>
+                <button class = "del" id="back">Back</button>
             </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
