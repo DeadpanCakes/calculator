@@ -86,7 +86,7 @@ table {
 	grid-column: 1/3;
 }
 
-.operator {
+.operators {
 	background-color: #e76d83;
 }
 
@@ -104,6 +104,19 @@ button {
 	border-style: solid;
 	border-radius: 10px;
 	outline: none;
+}
+
+.numbers:hover {
+	background-color: #e76d83;
+}
+
+.operators:hover {
+	background-color: #08415c;
+}
+
+.del:hover {
+	color: #393d3f;
+	background-color: #ebbab9;
 }
 
 * {

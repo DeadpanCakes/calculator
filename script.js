@@ -148,6 +148,12 @@ function operatorPressed(character){
     }
 }
 
+function selectOperator(character) {
+    let operators = document.getElementsByClassName("operators")
+    let index = operators.indexOf(character)
+    operators[index].style = "background: #e97a8e"
+}
+
 function checkDecimal (number) {
     let str = number.toString()
     let decimal = str.indexOf(".")
@@ -170,7 +176,7 @@ function applyNumberEvent() {
 }
 
 function applyOperatorEvent() {
-    let operators = document.getElementsByClassName("operator")
+    let operators = document.getElementsByClassName("operators")
     for (i=0;i<operators.length;i++){
         let character = operators[i].textContent
         operators[i].addEventListener("click", () => operatorPressed(character))
